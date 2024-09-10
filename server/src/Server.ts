@@ -4,8 +4,9 @@ import morgan from "morgan";
 import helmet from "helmet";
 import dotenv from "dotenv";
 
+//Configuración para las variables de entorno.
 dotenv.config();
-import { PORT } from "./configuration/env/enviroments";
+import { HOST, PORT } from "./configuration/env/enviroments";
 
 import equipmentRoutes from "./routes/equipment.routes";
 import userRoutes from "./routes/user.routes";
@@ -25,7 +26,7 @@ export class Server {
     //this: hace referencia a la misma clase
     this.app = express();
     this.port = Number(PORT);
-    this.host = "localhost";
+    this.host = HOST;
 
     this.initializationDatabase();
     this.middlewares();
