@@ -7,6 +7,7 @@ import {
   DB_PORT,
   DB_USER,
 } from "../configuration/env/enviroments";
+import { User } from "../models/User.model";
 
 const sequelize = new Sequelize({
   dialect: "postgres",
@@ -15,7 +16,7 @@ const sequelize = new Sequelize({
   database: DB_NAME,
   port: Number(DB_PORT),
   host: HOST,
-  models: [],
+  models: [User],
 });
 
 export default sequelize;
