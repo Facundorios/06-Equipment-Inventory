@@ -1,28 +1,35 @@
-import { Table, Column, Model, DataType } from "sequelize-typescript";
-
+import { Table, Column, Model, DataType, Default } from "sequelize-typescript";
+import { v4 as uuidv4 } from "uuid";
 @Table({
   tableName: "users",
 })
 export class User extends Model {
+  @Default(uuidv4)
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.UUID,
     allowNull: false,
     primaryKey: true,
-    autoIncrement: true,
   })
-  id!: number;
+  id!: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  firstName!: string;
+  name!: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  lastName!: string;
+  surname!: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    unique: true,
+  })
+  username!: string;
 
   @Column({
     type: DataType.STRING,
@@ -36,4 +43,11 @@ export class User extends Model {
     allowNull: false,
   })
   password!: string;
+
+  @Column({
+    type: DataType.ENUM("admin", "user", "viewer"),
+    allowNull: false,
+    defaultValue: "user",
+  })
+  role!: string;
 }

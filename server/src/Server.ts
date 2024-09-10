@@ -5,10 +5,11 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 
 dotenv.config();
-
 import { PORT } from "./configuration/env/enviroments";
 
 import equipmentRoutes from "./routes/equipment.routes";
+import userRoutes from "./routes/user.routes";
+
 import sequelize from "./database/sequelize";
 
 export class Server {
@@ -45,10 +46,12 @@ export class Server {
     this.app.use(cors());
     this.app.use(morgan("dev"));
     this.app.use(helmet());
+    this.app.use(express.json());
   }
 
   private routes(): void {
     this.app.use("/api/equipment", equipmentRoutes);
+    this.app.use("/api", userRoutes);
   }
 
   public initializationServer() {
