@@ -4,9 +4,13 @@ import {
   Column,
   Default,
   DataType,
+  BelongsTo,
   PrimaryKey,
+  ForeignKey,
 } from "sequelize-typescript";
 import { v4 as uuidv4 } from "uuid";
+
+import { Category } from "./Category.model";
 
 @Table({
   tableName: "equipments",
@@ -33,10 +37,11 @@ export class Equipment extends Model {
   description!: string;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.UUID,
     allowNull: false,
   })
-  category!: string;
+  @ForeignKey(() => Category)
+  categoryId: string;
 
   @Column({
     type: DataType.ENUM("available", "maintenance", "in-use", "retired"),
@@ -49,4 +54,6 @@ export class Equipment extends Model {
     allowNull: false,
   })
   stock: number;
+  @BelongsTo(() => Category)
+  category: Category;
 }

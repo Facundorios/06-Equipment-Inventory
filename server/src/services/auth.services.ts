@@ -6,12 +6,21 @@ import { User } from "../models";
 
 import { JWT_SECRET_KEY } from "../configuration/env/enviroments";
 
-export class UserServices {
+export class AuthServices {
   async createUser(user: CreateUser) {
-    return await User.create({
+    const newUser = await User.create({
       ...user,
       password: bcrypt.hashSync(user.password, 8),
     });
+
+    const token = jwt.sign(
+      { id: newUser.id, role: newUser.role },
+      JWT_SECRET_KEY,
+      {
+        expiresIn: "1d",
+      }
+    );
+    return { token };
   }
 
   async loginUser(user: LoginUser) {

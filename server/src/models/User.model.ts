@@ -17,33 +17,33 @@ export class User extends Model {
     type: DataType.UUID,
     allowNull: false,
   })
-  id!: string;
+  id: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  name!: string;
+  name: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  surname!: string;
-
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-    unique: true,
-  })
-  username!: string;
+  surname: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
     unique: true,
   })
-  email!: string;
+  username: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    unique: true,
+  })
+  email: string;
 
   @Column({
     type: DataType.STRING,
@@ -52,9 +52,9 @@ export class User extends Model {
   password!: string;
 
   @Column({
-    type: DataType.ENUM("admin", "user", "viewer"),
+    type: DataType.ENUM("admin", "user"),
     allowNull: false,
     defaultValue: "user",
   })
-  role!: string;
+  role: string;
 }

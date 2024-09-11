@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize-typescript";
+import { Sequelize, BelongsTo, HasMany } from "sequelize-typescript";
 
 import {
   HOST,
@@ -7,7 +7,10 @@ import {
   DB_PORT,
   DB_USER,
 } from "../configuration/env/enviroments";
-import { User, Equipment } from "../models";
+
+import { categories } from "../data/categories";
+
+import { Category, User, Equipment } from "../models";
 
 const sequelize = new Sequelize({
   dialect: "postgres",
@@ -16,7 +19,16 @@ const sequelize = new Sequelize({
   database: DB_NAME,
   port: Number(DB_PORT),
   host: HOST,
-  models: [User, Equipment],
+  models: [User, Equipment, Category],
+});
+
+sequelize.sync().then(async () => {
+  const categoriesData = await Category.findAll();
+  if (categoriesData.length === 0) {
+    categories.forEach(async (category) => {
+      await Category.create(category);
+    });
+  }
 });
 
 export default sequelize;

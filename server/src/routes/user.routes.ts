@@ -1,27 +1,28 @@
 import { Router } from "express";
-import { UserControllers } from "../controllers/user.controllers";
+import { AuthControllers } from "../controllers/auth.controllers";
 
+//Se crea la clase UserRoutes
 class UserRoutes {
   //public: se puede acceder a la propiedad desde cualquier parte del código
   public router: Router;
-  public userController: UserControllers;
+  public authController: AuthControllers;
 
   //constructor: se ejecuta cuando se CREA una instancia de la clase
   constructor() {
-    this.userController = new UserControllers();
+    this.authController = new AuthControllers();
 
     this.router = Router();
     this.routes();
-
-    //se instancia la clase UserControllers
   }
 
   //void: no devuelve nada, solo ejecuta una acción (no retorna nada)
+
   //private: solo se puede acceder a la propiedad DESDE la misma clase
   private routes(): void {
-    this.router.post("/register", this.userController.createUser);
-    this.router.post("/login", this.userController.loginUser);
+    this.router.post("/register", this.authController.createUser);
+    this.router.post("/login", this.authController.loginUser);
   }
 }
 
+//Se exporta una instancia de la clase UserRoutes, para poder acceder a la propiedad router
 export default new UserRoutes().router;
