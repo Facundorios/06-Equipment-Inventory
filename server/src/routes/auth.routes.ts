@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { AuthControllers } from "../controllers/auth.controllers";
 
-//Se crea la clase UserRoutes
-class UserRoutes {
+//Se crea la clase AuthRoutes
+class AuthRoutes {
   //public: se puede acceder a la propiedad desde cualquier parte del código
   public router: Router;
   public authController: AuthControllers;
@@ -24,5 +24,5 @@ class UserRoutes {
   }
 }
 
-//Se exporta una instancia de la clase UserRoutes, para poder acceder a la propiedad router
-export default new UserRoutes().router;
+//Se exporta una instancia de la clase AuthRoutes, para poder acceder a la propiedad router
+export default new AuthRoutes().router;

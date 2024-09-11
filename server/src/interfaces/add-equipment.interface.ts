@@ -4,4 +4,5 @@ export interface AddEquipment {
   category: string;
   status: string;
   stock: number;
+  categroryId: number;
 }

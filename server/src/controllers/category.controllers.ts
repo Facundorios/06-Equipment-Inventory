@@ -17,16 +17,15 @@ export class CategoriesControllers {
       res.json(error);
     }
   };
-  public getCategory = async (req: Request, res: Response) => {
+  public getCategory = async (req: Request, res: Response): Promise<void> => {
     try {
       const id: string = req.params.id;
       console.log({ id });
 
       const category = await this.categoriesServices.getCategoryById(id);
-      if (!category)
-        return res.status(404).json({ message: "Category not found" });
-
       res.status(200).json({ category });
+
+      if (!category) res.status(404).json({ message: "Category not found" });
     } catch (error) {
       res.json(error);
     }

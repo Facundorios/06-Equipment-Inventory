@@ -1,3 +1,6 @@
 import { AddEquipment } from "./add-equipment.interface";
 
-export interface UpdateEquipment extends AddEquipment {}
+export interface UpdateEquipment {
+  status: string;
+  stock: number;
+}
