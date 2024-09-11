@@ -1,8 +1,9 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
-import { User } from "../models/User.model";
 import { CreateUser, LoginUser } from "../interfaces";
+import { User } from "../models";
+
 import { JWT_SECRET_KEY } from "../configuration/env/enviroments";
 
 export class UserServices {
@@ -28,7 +29,7 @@ export class UserServices {
       { id: exists.id, role: exists.role },
       JWT_SECRET_KEY,
       {
-        expiresIn: 86400,
+        expiresIn: "1d",
       }
     );
     return { token };

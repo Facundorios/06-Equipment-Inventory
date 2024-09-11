@@ -7,10 +7,11 @@ import {
   PrimaryKey,
 } from "sequelize-typescript";
 import { v4 as uuidv4 } from "uuid";
+
 @Table({
-  tableName: "users",
+  tableName: "equipments",
 })
-export class User extends Model {
+export class Equipment extends Model {
   @Default(uuidv4)
   @PrimaryKey
   @Column({
@@ -29,32 +30,23 @@ export class User extends Model {
     type: DataType.STRING,
     allowNull: false,
   })
-  surname!: string;
-
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-    unique: true,
-  })
-  username!: string;
-
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-    unique: true,
-  })
-  email!: string;
+  description!: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  password!: string;
+  category!: string;
 
   @Column({
-    type: DataType.ENUM("admin", "user", "viewer"),
+    type: DataType.ENUM("available", "maintenance", "in-use", "retired"),
     allowNull: false,
-    defaultValue: "user",
   })
-  role!: string;
+  status: string;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  stock: number;
 }
