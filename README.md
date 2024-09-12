@@ -45,7 +45,10 @@ DB_PASS=
 DB_NAME=
 DB_PORT=
 PORT=
+JWT_SECRET_KEY=
 ```
+
+#### NOTA: Crear una base de datos en Postgres que se llame "formotex_db"
 
 ## Iniciar la aplicación
 
@@ -58,4 +61,4 @@ npm run dev
 
 # Funcionalidades desarrolladas.
 
-...
+... Son, son las 10 de la mañana, creo que no he dormido nada, y tengo que decirtelo..

@@ -22,6 +22,7 @@ const sequelize = new Sequelize({
   models: [User, Equipment, Category],
 });
 
+//Carga inicial de categorias en la base de datos
 sequelize.sync().then(async () => {
   const categoriesData = await Category.findAll();
   if (categoriesData.length === 0) {

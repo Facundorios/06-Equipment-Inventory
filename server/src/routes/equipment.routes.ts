@@ -1,6 +1,11 @@
 import { Router, Request, Response } from "express";
 
+import { auth } from "../auth/jwt/validate-token";
+import { role } from "../auth/jwt/validate-role";
+
 import { EquipmentControllers } from "../controllers/equipment.controllers";
+
+import { ValidRoles } from "../interfaces";
 
 class EquipmentRoutes {
   public router: Router;
@@ -14,11 +19,31 @@ class EquipmentRoutes {
   }
 
   private routes(): void {
-    this.router.post("/create", this.equipmentControllers.createEquipment);
-    this.router.get("/", this.equipmentControllers.getEquipments);
-    this.router.get("/:id", this.equipmentControllers.getEquipmentById);
-    this.router.patch("/:id", this.equipmentControllers.updateEquipment);
-    this.router.delete("/:id", this.equipmentControllers.deleteEquipment);
+    this.router.post(
+      "/create",
+      role(ValidRoles.ADMIN),
+      auth,
+      this.equipmentControllers.createEquipment
+    );
+    this.router.get(
+      "/",
+      auth,
+      role(ValidRoles.ADMIN),
+      this.equipmentControllers.getEquipments
+    );
+    this.router.get(
+      "/:id",
+      auth,
+      role(ValidRoles.ADMIN),
+      this.equipmentControllers.getEquipmentById
+    );
+    this.router.patch(
+      "/:id",
+      auth,
+      role(ValidRoles.ADMIN),
+      this.equipmentControllers.updateEquipment
+    );
+    this.router.delete("/:id", auth, this.equipmentControllers.deleteEquipment);
   }
 }
 

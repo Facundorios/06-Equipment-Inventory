@@ -5,8 +5,11 @@ import {
   Default,
   DataType,
   PrimaryKey,
+  HasMany,
 } from "sequelize-typescript";
 import { v4 as uuidv4 } from "uuid";
+
+import { Equipment } from "./";
 @Table({
   tableName: "users",
 })
@@ -52,9 +55,11 @@ export class User extends Model {
   password: string;
 
   @Column({
-    type: DataType.ENUM("admin", "user"),
+    type: DataType.ENUM("admin", "supervisor"),
     allowNull: false,
-    defaultValue: "user",
   })
   role: string;
+
+  @HasMany(() => Equipment)
+  equipment: Equipment[];
 }

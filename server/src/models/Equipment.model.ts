@@ -10,8 +10,7 @@ import {
 } from "sequelize-typescript";
 import { v4 as uuidv4 } from "uuid";
 
-import { Category } from "./Category.model";
-
+import { User, Category } from "./";
 @Table({
   tableName: "equipments",
 })
@@ -37,13 +36,6 @@ export class Equipment extends Model {
   description!: string;
 
   @Column({
-    type: DataType.UUID,
-    allowNull: false,
-  })
-  @ForeignKey(() => Category)
-  categoryId: string;
-
-  @Column({
     type: DataType.ENUM("available", "maintenance", "in-use", "retired"),
     allowNull: false,
   })
@@ -54,6 +46,16 @@ export class Equipment extends Model {
     allowNull: false,
   })
   stock: number;
+
+  @ForeignKey(() => User)
+  userId: string;
+
+  @ForeignKey(() => Category)
+  categoryId: string;
+
   @BelongsTo(() => Category)
   category: Category;
+
+  @BelongsTo(() => User)
+  user: User;
 }

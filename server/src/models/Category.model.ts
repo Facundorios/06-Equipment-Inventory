@@ -8,7 +8,8 @@ import {
   HasMany,
 } from "sequelize-typescript";
 import { v4 as uuidv4 } from "uuid";
-import { Equipment } from "./Equipment.model";
+
+import { Equipment } from "./";
 
 @Table({
   tableName: "categories",
