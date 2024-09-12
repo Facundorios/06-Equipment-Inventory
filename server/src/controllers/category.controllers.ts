@@ -9,25 +9,28 @@ export class CategoriesControllers {
     this.categoriesServices = new CategoriesServices();
   }
 
-  public getCategories = async (req: Request, res: Response): Promise<void> => {
+  public getCategories = async (req: Request, res: Response): Promise<any> => {
     try {
       const categories = await this.categoriesServices.getAllCategories();
+      if (categories.length === 0)
+        res.status(404).json({ message: "Categories not found" });
+
       res.status(200).json({ categories });
     } catch (error: any) {
-      res.json(error);
+      res.status(500).json({ error });
     }
   };
-  public getCategory = async (req: Request, res: Response): Promise<void> => {
+  public getCategory = async (req: Request, res: Response): Promise<any> => {
     try {
       const id: string = req.params.id;
       console.log({ id });
 
       const category = await this.categoriesServices.getCategoryById(id);
-      res.status(200).json({ category });
-
       if (!category) res.status(404).json({ message: "Category not found" });
+
+      res.status(200).json({ category });
     } catch (error) {
-      res.json(error);
+      res.status(500).json({ error });
     }
   };
 }

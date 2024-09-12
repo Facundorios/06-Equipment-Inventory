@@ -1,13 +1,12 @@
 import { AddEquipment, UpdateEquipment } from "../interfaces";
-
 import { Equipment } from "../models";
 
 export class EquipmentService {
-  async createEquipment(equipment: AddEquipment) {
-    const newEquipment = await Equipment.create({
-      ...equipment,
+  async createEquipment(addEquipment: AddEquipment) {
+    const equipment = await Equipment.create({
+      ...addEquipment,
     });
-    return newEquipment;
+    return equipment;
   }
 
   async getEquipments() {
@@ -20,18 +19,27 @@ export class EquipmentService {
     return equipment;
   }
 
-  async updateEquipment(id: string, equipment: UpdateEquipment) {
-    const exists = await this.getEquipmentById(id);
-    if (!exists) {
-      throw new Error("Equipment not found");
-    }
+  async updateEquipment(id: string, updateEquipment: UpdateEquipment) {
+    const equipment = await Equipment.findByPk(id);
 
-    await Equipment.update(equipment, {
+    await Equipment.update(updateEquipment, {
       where: {
         id,
       },
     });
 
-    return await this.getEquipmentById(id);
+    return equipment;
+  }
+
+  async deleteEquipment(id: string) {
+    const equipment = await Equipment.findByPk(id);
+
+    await Equipment.destroy({
+      where: {
+        id,
+      },
+    });
+
+    return equipment;
   }
 }

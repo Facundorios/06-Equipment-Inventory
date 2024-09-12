@@ -26,10 +26,10 @@ export class EquipmentControllers {
     try {
       const equipmentData: AddEquipment = req.body;
 
-      const newEquipment = await this.equipmentServices.createEquipment(
+      const equipment = await this.equipmentServices.createEquipment(
         equipmentData
       );
-      res.status(201).json({ newEquipment });
+      res.status(201).json({ equipment });
     } catch (error) {
       res.status(500).json(error);
     }
@@ -60,12 +60,29 @@ export class EquipmentControllers {
       const id: string = req.params.id;
       const equipmentData: UpdateEquipment = req.body;
 
-      const updatedEquipment = await this.equipmentServices.updateEquipment(
+      const equipment = await this.equipmentServices.updateEquipment(
         id,
         equipmentData
       );
 
-      res.status(200).json({ updatedEquipment });
+      res.status(200).json({ equipment });
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+  };
+
+  public deleteEquipment = async (
+    req: Request,
+    res: Response
+  ): Promise<any> => {
+    try {
+      const id: string = req.params.id;
+      const equipment = await this.equipmentServices.deleteEquipment(id);
+
+      if (!equipment) {
+        return res.status(404).json({ msg: "Equipment not found" });
+      }
+      res.status(200).json({ message: "Equipment deleted" });
     } catch (error) {
       res.status(500).json({ error });
     }

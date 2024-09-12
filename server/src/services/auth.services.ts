@@ -17,7 +17,7 @@ export class AuthServices {
       { id: newUser.id, role: newUser.role },
       JWT_SECRET_KEY,
       {
-        expiresIn: "1d",
+        expiresIn: "1h",
       }
     );
     return { token };
@@ -38,7 +38,7 @@ export class AuthServices {
       { id: exists.id, role: exists.role },
       JWT_SECRET_KEY,
       {
-        expiresIn: "1d",
+        expiresIn: "1h",
       }
     );
     return { token };
