@@ -49,7 +49,7 @@ export class User extends Model {
     type: DataType.STRING,
     allowNull: false,
   })
-  password!: string;
+  password: string;
 
   @Column({
     type: DataType.ENUM("admin", "user"),

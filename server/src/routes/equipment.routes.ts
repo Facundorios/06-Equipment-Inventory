@@ -14,7 +14,10 @@ class EquipmentRoutes {
   }
 
   private routes(): void {
+    this.router.get("/", this.equipmentControllers.getEquipments);
+    this.router.get("/:id", this.equipmentControllers.getEquipmentById);
     this.router.post("/create", this.equipmentControllers.createEquipment);
+    this.router.patch("/:id", this.equipmentControllers.updateEquipment);
   }
 }
 
