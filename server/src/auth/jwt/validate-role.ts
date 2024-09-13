@@ -13,7 +13,7 @@ export const role = (role: ValidRoles) => {
     let decoded = jwt.verify(token, JWT_SECRET_KEY) as DecodedToken;
     if (decoded.role !== role) {
       return res.status(401).json({
-        message: `No tienes permiso, debes ser un${role}`,
+        message: `No tienes permiso, debes ser un ${role.toUpperCase()}`,
       });
     }
     next();

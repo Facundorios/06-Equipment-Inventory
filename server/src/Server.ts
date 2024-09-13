@@ -11,7 +11,8 @@ import { HOST, PORT } from "./configuration/env/enviroments";
 import equipmentRoutes from "./routes/equipment.routes";
 import categoryRoutes from "./routes/category.routes";
 import authRoutes from "./routes/auth.routes";
-//Importació de la conexión a la base de datos
+
+//Importación de la conexión a la base de datos
 import sequelize from "./database/sequelize";
 
 export class Server {
@@ -19,8 +20,6 @@ export class Server {
   private app: Application;
   private port: number;
   private host: string;
-
-  //pool: es una conexión a la base de datos
 
   //contructor: se ejecuta cuando se CREA una instancia de la clase
   constructor() {

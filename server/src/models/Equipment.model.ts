@@ -11,6 +11,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 
 import { User, Category } from "./";
+import { ValidStatus } from "../interfaces";
 @Table({
   tableName: "equipments",
 })
@@ -36,7 +37,12 @@ export class Equipment extends Model {
   description!: string;
 
   @Column({
-    type: DataType.ENUM("available", "maintenance", "in-use", "retired"),
+    type: DataType.ENUM(
+      ValidStatus.AVAILABLE,
+      ValidStatus.IN_USE,
+      ValidStatus.MAINTENANCE,
+      ValidStatus.RETIRED
+    ),
     allowNull: false,
   })
   status: string;

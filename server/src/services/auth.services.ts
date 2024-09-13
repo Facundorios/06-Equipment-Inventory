@@ -20,7 +20,7 @@ export class AuthServices {
         expiresIn: "1h",
       }
     );
-    return { token };
+    return { newUser, token };
   }
 
   async loginUser(user: LoginUser) {

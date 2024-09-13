@@ -9,6 +9,8 @@ import {
 } from "sequelize-typescript";
 import { v4 as uuidv4 } from "uuid";
 
+import { ValidRoles } from "../interfaces";
+
 import { Equipment } from "./";
 @Table({
   tableName: "users",
@@ -55,10 +57,10 @@ export class User extends Model {
   password: string;
 
   @Column({
-    type: DataType.ENUM("admin", "supervisor"),
+    type: DataType.ENUM(ValidRoles.ADMIN, ValidRoles.SUPERVISOR),
     allowNull: false,
   })
-  role: string;
+  role: ValidRoles;
 
   @HasMany(() => Equipment)
   equipment: Equipment[];

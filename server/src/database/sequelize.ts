@@ -8,7 +8,7 @@ import {
   DB_USER,
 } from "../configuration/env/enviroments";
 
-import { categories } from "../data/categories";
+import { categories } from "./data/categories";
 
 import { Category, User, Equipment } from "../models";
 

@@ -7,3 +7,4 @@ export { EditEquipment } from "./edit-equipment.interface";
 
 export { DecodedToken } from "./decoded-token";
 export { ValidRoles } from "./valid-roles";
+export { ValidStatus } from "./valid-status";
