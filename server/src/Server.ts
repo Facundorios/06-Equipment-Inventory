@@ -11,6 +11,7 @@ import { HOST, PORT } from "./configuration/env/enviroments";
 import equipmentRoutes from "./routes/equipment.routes";
 import categoryRoutes from "./routes/category.routes";
 import authRoutes from "./routes/auth.routes";
+import userRoutes from "./routes/user.routes";
 
 //Importación de la conexión a la base de datos
 import sequelize from "./database/sequelize";
@@ -55,6 +56,7 @@ export class Server {
     this.app.use("/api/equipment", equipmentRoutes);
     this.app.use("/api/auth", authRoutes);
     this.app.use("/api/category", categoryRoutes);
+    this.app.use("/api/user", userRoutes);
   }
 
   //Inicialización del servidor

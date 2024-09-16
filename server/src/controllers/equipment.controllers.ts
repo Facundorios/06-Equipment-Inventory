@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 import { JWT_SECRET_KEY } from "../configuration/env/enviroments";
 
 import { EquipmentService } from "../services/equipment.services";
-import { AddEquipment, DecodedToken, UpdateEquipment } from "../interfaces";
+import { AddEquipment, UpdateEquipment } from "../interfaces";
 
 export class EquipmentControllers {
   public equipmentServices: EquipmentService;
@@ -30,7 +30,7 @@ export class EquipmentControllers {
       let token: string = req.headers.authorization?.toString() || "";
       token = token?.split(" ")[1];
 
-      const decoded = jwt.verify(token, JWT_SECRET_KEY) as DecodedToken;
+      const decoded = jwt.verify(token, JWT_SECRET_KEY) as JwtPayload;
       const equipmentData: AddEquipment = req.body;
       const userId: string = decoded.id;
 

@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
+
 import { getEquipmentsRequest } from "../api/equipment";
 
 import "../style/products.css";
@@ -26,6 +28,7 @@ export default function EquipmentsPage() {
                 <p>{equipment.description}</p>
               </li>
               <img src={equipment.imageUrl} alt={equipment.name} width={100} />
+              <Link to={`/equipo/${equipment.id}`}>View</Link>
             </div>
           ))}
       </div>
