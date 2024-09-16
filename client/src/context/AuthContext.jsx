@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(true);
       }
     } catch (error) {
-      alert("Error al registrarse");
+      alert(error);
       setError(error);
       console.log(error);
     }
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(true);
       }
     } catch (error) {
-      alert("Error al iniciar sesión:", error.message);
+      alert(error);
       setError(error);
       console.log(error);
     }

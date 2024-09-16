@@ -16,7 +16,7 @@ export class EquipmentControllers {
   public getEquipments = async (req: Request, res: Response): Promise<any> => {
     try {
       const equipments = await this.equipmentServices.getEquipments();
-      res.status(200).json({ equipments });
+      res.status(200).json(equipments);
     } catch (error) {
       res.status(500).json({ error });
     }

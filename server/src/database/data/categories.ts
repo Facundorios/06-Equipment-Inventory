@@ -1,4 +1,4 @@
-export const categories = [
+export const categoriesData = [
   {
     name: "pantallas",
     description: "Pantallas de computadores, televisiones, monitores, etc.",

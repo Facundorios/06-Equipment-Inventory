@@ -7,6 +7,7 @@ import {
   BelongsTo,
   PrimaryKey,
   ForeignKey,
+  AllowNull,
 } from "sequelize-typescript";
 import { v4 as uuidv4 } from "uuid";
 
@@ -22,13 +23,13 @@ export class Equipment extends Model {
     type: DataType.UUID,
     allowNull: false,
   })
-  id!: string;
+  id: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  name!: string;
+  name: string;
 
   @Column({
     type: DataType.STRING,
@@ -52,6 +53,12 @@ export class Equipment extends Model {
     allowNull: false,
   })
   stock: number;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  imageUrl: string;
 
   @ForeignKey(() => User)
   userId: string;

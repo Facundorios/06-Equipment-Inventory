@@ -25,12 +25,7 @@ class EquipmentRoutes {
       auth,
       this.equipmentControllers.createEquipment
     );
-    this.router.get(
-      "/",
-      auth,
-      role(ValidRoles.ADMIN),
-      this.equipmentControllers.getEquipments
-    );
+    this.router.get("/", this.equipmentControllers.getEquipments);
     this.router.get(
       "/:id",
       auth,

@@ -1,4 +1,4 @@
-import { Sequelize, BelongsTo, HasMany } from "sequelize-typescript";
+import { Sequelize } from "sequelize-typescript";
 
 import {
   HOST,
@@ -8,7 +8,7 @@ import {
   DB_USER,
 } from "../configuration/env/enviroments";
 
-import { categories } from "./data/categories";
+import { categoriesData, equipmentData } from "./data";
 
 import { Category, User, Equipment } from "../models";
 
@@ -19,16 +19,30 @@ const sequelize = new Sequelize({
   database: DB_NAME,
   port: Number(DB_PORT),
   host: HOST,
-  models: [User, Equipment, Category],
+  models: [Category, Equipment, User],
 });
 
-//Carga inicial de categorias en la base de datos
+//Carga inicial de equipos y categorias en la base de datos
 sequelize.sync().then(async () => {
-  const categoriesData = await Category.findAll();
-  if (categoriesData.length === 0) {
-    categories.forEach(async (category) => {
-      await Category.create(category);
-    });
+  const categories = await Category.findAll();
+  if (categories.length === 0) {
+    Promise.all(
+      categoriesData.map(async (category) => {
+        await Category.create(category);
+      })
+    );
+  }
+
+  const equipments = await Equipment.findAll();
+  if (equipments.length === 0) {
+    Promise.all(
+      equipmentData.map(async (equipment) => {
+        const category = await Category.findOne({
+          where: { name: equipment.categoryName },
+        });
+        await Equipment.create({ ...equipment, categoryId: category?.id });
+      })
+    );
   }
 });
 

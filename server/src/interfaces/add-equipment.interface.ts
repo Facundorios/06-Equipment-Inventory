@@ -3,5 +3,5 @@ export interface AddEquipment {
   description: string;
   status: string;
   stock: number;
-  categroryId: number;
+  categroryId: string;
 }

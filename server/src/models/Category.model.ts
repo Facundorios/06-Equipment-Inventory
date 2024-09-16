@@ -21,19 +21,19 @@ export class Category extends Model {
     type: DataType.UUID,
     allowNull: false,
   })
-  id!: string;
+  id: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  name!: string;
+  name: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  description!: string;
+  description: string;
 
   @HasMany(() => Equipment)
   equipment: Equipment[];
