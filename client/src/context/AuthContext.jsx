@@ -19,16 +19,19 @@ export const useAuth = () => {
 // Se crea el proveedor de autenticación
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const register = async (user) => {
     try {
-      await registerRequest(user);
-      setUser(user);
-      setIsAuthenticated(true);
+      const response = await registerRequest(user);
+      if (response.status == 201) {
+        console.log({ DATAAA: response.data });
+        setUser(response.data);
+        setIsAuthenticated(true);
+      }
     } catch (error) {
+      alert("Error al registrarse");
       setError(error);
       console.log(error);
     }
@@ -36,10 +39,13 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (user) => {
     try {
-      await loginRequest(user);
-      setUser(user);
-      setIsAuthenticated(true);
+      const response = await loginRequest(user);
+      if (response.status == 200) {
+        setUser(response.data.exists);
+        setIsAuthenticated(true);
+      }
     } catch (error) {
+      alert("Error al iniciar sesión:", error.message);
       setError(error);
       console.log(error);
     }

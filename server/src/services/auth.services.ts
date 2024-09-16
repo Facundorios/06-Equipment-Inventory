@@ -8,19 +8,23 @@ import { JWT_SECRET_KEY } from "../configuration/env/enviroments";
 
 export class AuthServices {
   async createUser(user: CreateUser) {
-    const newUser = await User.create({
-      ...user,
-      password: bcrypt.hashSync(user.password, 8),
-    });
+    try {
+      const newUser = await User.create({
+        ...user,
+        password: bcrypt.hashSync(user.password, 8),
+      });
 
-    const token = jwt.sign(
-      { id: newUser.id, role: newUser.role },
-      JWT_SECRET_KEY,
-      {
-        expiresIn: "1h",
-      }
-    );
-    return { newUser, token };
+      const token = jwt.sign(
+        { id: newUser.id, role: newUser.role },
+        JWT_SECRET_KEY,
+        {
+          expiresIn: "1h",
+        }
+      );
+      return { newUser, token };
+    } catch (error) {
+      throw new Error("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEO");
+    }
   }
 
   async loginUser(user: LoginUser) {
@@ -29,10 +33,10 @@ export class AuthServices {
         username: user.username,
       },
     });
-    if (!exists) return { message: "User not found" };
+    if (!exists) return null;
 
     const valid = bcrypt.compareSync(user.password, exists.password);
-    if (!valid) return { message: "Invalid password" };
+    if (!valid) return null;
 
     const token = jwt.sign(
       { id: exists.id, role: exists.role },

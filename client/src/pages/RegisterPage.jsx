@@ -77,7 +77,7 @@ export default function RegisterPage() {
           defaultValue="default"
           required
         >
-          <option value="default" disabled>
+          <option defaultValue={"admin"} disabled>
             Seleccione un rol
           </option>
           <option value="admin">Administrador</option>

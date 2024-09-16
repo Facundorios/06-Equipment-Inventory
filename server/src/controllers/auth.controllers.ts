@@ -19,12 +19,14 @@ export class AuthControllers {
       const userData: CreateUser = req.body;
       console.log({ userData });
       const newUser = await this.authServices.createUser(userData);
-      if (newUser) {
-        return res.status(400).json({ message: "User already exists" });
+
+      if (!newUser) {
+        return res.status(400).json({ message: "eRROr" });
       }
-      res.status(201).json({ data: newUser });
+      res.status(201).json(newUser);
     } catch (error: any) {
-      res.status(500).json({ error });
+      console.log(error);
+      res.status(500).json({ error: "EEEEEEEEEEEEEEEEEROR" });
     }
   };
 
@@ -38,7 +40,7 @@ export class AuthControllers {
         return res.status(404).json({ message: "User not found" });
       }
 
-      res.status(200).json({ loginUser });
+      res.status(200).json(loginUser);
     } catch (error) {
       res.status(500).json({ error });
     }
