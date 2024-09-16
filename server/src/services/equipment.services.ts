@@ -2,9 +2,10 @@ import { AddEquipment, UpdateEquipment } from "../interfaces";
 import { Equipment } from "../models";
 
 export class EquipmentService {
-  async createEquipment(addEquipment: AddEquipment) {
+  async createEquipment(addEquipment: AddEquipment, userId: string) {
     const equipment = await Equipment.create({
       ...addEquipment,
+      userId,
     });
     return equipment;
   }

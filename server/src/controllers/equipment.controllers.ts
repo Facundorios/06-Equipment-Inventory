@@ -1,7 +1,10 @@
 import { Request, Response } from "express";
+import jwt from "jsonwebtoken";
 
-import { EquipmentService } from "../services/requipment.services";
-import { AddEquipment, UpdateEquipment } from "../interfaces";
+import { JWT_SECRET_KEY } from "../configuration/env/enviroments";
+
+import { EquipmentService } from "../services/equipment.services";
+import { AddEquipment, DecodedToken, UpdateEquipment } from "../interfaces";
 
 export class EquipmentControllers {
   public equipmentServices: EquipmentService;
@@ -24,11 +27,18 @@ export class EquipmentControllers {
     res: Response
   ): Promise<any> => {
     try {
+      let token: string = req.headers.authorization?.toString() || "";
+      token = token?.split(" ")[1];
+
+      const decoded = jwt.verify(token, JWT_SECRET_KEY) as DecodedToken;
       const equipmentData: AddEquipment = req.body;
+      const userId: string = decoded.id;
 
       const equipment = await this.equipmentServices.createEquipment(
-        equipmentData
+        equipmentData,
+        userId
       );
+
       res.status(201).json({ equipment });
     } catch (error) {
       res.status(500).json(error);

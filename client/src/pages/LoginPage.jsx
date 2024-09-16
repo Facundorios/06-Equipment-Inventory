@@ -1,17 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { loginRequest } from "../api/auth";
 import { useAuth } from "../context/AuthContext";
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
 
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (isAuthenticated) navigate("/catalogo-de-equipos ");
+  }, [isAuthenticated]);
 
   const handleChange = (e) => {
     setCredentials({
@@ -20,8 +23,8 @@ export default function LoginPage() {
     });
   };
 
-  const onSubmit = async () => {
-    loginRequest(credentials);
+  const onSubmit = async (credentials) => {
+    login(credentials);
   };
 
   return (

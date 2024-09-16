@@ -6,7 +6,7 @@ export function ProtectedRoute() {
 
   if (loading) return <h1>Loading..</h1>;
   if (!loading && !isAuthenticated) {
-    return <Navigate to="/inicio-de-sesion" replace />;
+    return <Navigate to="/" replace />;
   }
   return <Outlet />;
 }

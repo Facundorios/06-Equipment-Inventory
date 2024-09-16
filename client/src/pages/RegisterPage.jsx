@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { registerRequest } from "../api/auth";
 import { useAuth } from "../context/AuthContext";
+import "../style/form.css";
 
 export default function RegisterPage() {
-  const { register } = useAuth();
+  const { register, isAuthenticated } = useAuth();
 
   const navigate = useNavigate();
-  const [userdata, setUserdata] = useState({
+  const [user, setuser] = useState({
     name: "",
     surname: "",
     username: "",
@@ -17,15 +17,19 @@ export default function RegisterPage() {
     role: "",
   });
 
+  useEffect(() => {
+    if (isAuthenticated) navigate("/catalogo-de-equipos ");
+  }, [isAuthenticated]);
+
   const handleChange = (e) => {
-    setUserdata({
-      ...userdata,
+    setuser({
+      ...user,
       [e.target.name]: e.target.value,
     });
   };
 
   const onSubmit = async () => {
-    register(userdata);
+    register(user);
   };
 
   return (
@@ -34,7 +38,7 @@ export default function RegisterPage() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          onSubmit(userdata);
+          onSubmit(user);
         }}
       >
         <input

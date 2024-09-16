@@ -1,0 +1,15 @@
+nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #181717;
+  width: 100vh;
+}
+
+ul {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}

@@ -1,5 +1,6 @@
 import { useContext, createContext, useState } from "react";
 import { loginRequest, registerRequest } from "../api/auth";
+import axios from "axios";
 
 // Se crea el contexto de autenticación
 const AuthContext = createContext();
@@ -14,39 +15,46 @@ export const useAuth = () => {
   }
   return useContext(AuthContext);
 };
-//
 
+// Se crea el proveedor de autenticación
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const register = async (userdata) => {
+  const register = async (user) => {
     try {
-      await registerRequest(userdata);
-      setUser(userdata);
+      await registerRequest(user);
+      setUser(user);
       setIsAuthenticated(true);
-      console.log(res.data);
     } catch (error) {
       setError(error);
       console.log(error);
     }
   };
 
-  const login = async (credentials) => {
+  const login = async (user) => {
     try {
-      await loginRequest(credentials);
-      setUser(credentials);
+      await loginRequest(user);
+      setUser(user);
       setIsAuthenticated(true);
     } catch (error) {
       setError(error);
       console.log(error);
     }
+  };
+
+  const logout = () => {
+    setUser(null);
+    setIsAuthenticated(false);
+    delete axios.defaults.headers.common["Authorization"];
   };
 
   return (
-    <AuthContext.Provider value={{ register, login }}>
+    <AuthContext.Provider
+      value={{ register, login, logout, isAuthenticated, user }}
+    >
       {children}
     </AuthContext.Provider>
   );

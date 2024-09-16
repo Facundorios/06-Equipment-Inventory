@@ -41,6 +41,6 @@ export class AuthServices {
         expiresIn: "1h",
       }
     );
-    return { token };
+    return { exists, token };
   }
 }
