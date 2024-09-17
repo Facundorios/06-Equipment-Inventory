@@ -1,22 +1,28 @@
 nav {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
+  font-weight: bold;
   background-color: #923f3f;
   width: 100%;
 }
 
-p {
+nav div {
   display: flex;
-  flex-direction: row;
-  color: white;
-  margin: 0;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
-button {
-  background-color: #6e2e2e;
+nav button {
   color: white;
+  background-color: #602c2c;
+  padding: 0.5rem;
   border: none;
-  cursor: pointer;
-  padding: 1rem;
+  border-radius: 5px;
+  &:hover {
+    background-color: #552c2c;
+  }
+}
+
+nav p {
+  list-style-type: none;
+  color: white;
+  padding: 0.5rem;
 }

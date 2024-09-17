@@ -12,8 +12,9 @@ export default function CreateEquipmentPage() {
     name: "",
     stock: 0,
     status: "",
-    description: "",
     imageUrl: "",
+    categoryId: "",
+    description: "",
   });
 
   useEffect(() => {
@@ -51,8 +52,9 @@ export default function CreateEquipmentPage() {
           name: "",
           stock: 0,
           status: "",
-          description: "",
           imageUrl: "",
+          categoryId: "",
+          description: "",
         });
       });
     } catch (error) {
@@ -115,12 +117,16 @@ export default function CreateEquipmentPage() {
           value={equipment.imageUrl}
           onChange={handleChange}
         />
-
-        <label htmlFor="category">Categoría</label>
-        <select name="category" id="category">
+        <label htmlFor="categoryId">Categoría</label>
+        <select
+          name="categoryId"
+          id="categoryId"
+          value={equipment.categoryId}
+          onChange={handleChange}
+        >
           {categories.map((category) => (
             <option key={category.id} value={category.id}>
-              {category.name.toUpperCase()}
+              {category.name}
             </option>
           ))}
         </select>
