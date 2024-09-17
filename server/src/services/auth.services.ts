@@ -7,23 +7,19 @@ import { User } from "../models";
 import { JWT_SECRET_KEY } from "../configuration/env/enviroments";
 
 export class AuthServices {
-  async createUser(user: CreateUser) {
+  async createUser(userdata: CreateUser) {
     try {
-      const newUser = await User.create({
-        ...user,
-        password: bcrypt.hashSync(user.password, 8),
+      const user = await User.create({
+        ...userdata,
+        password: bcrypt.hashSync(userdata.password, 8),
       });
 
-      const token = jwt.sign(
-        { id: newUser.id, role: newUser.role },
-        JWT_SECRET_KEY,
-        {
-          expiresIn: "1h",
-        }
-      );
-      return { newUser, token };
+      const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET_KEY, {
+        expiresIn: "1h",
+      });
+      return { user, token };
     } catch (error) {
-      throw new Error("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEO");
+      throw new Error("Error creating user");
     }
   }
 

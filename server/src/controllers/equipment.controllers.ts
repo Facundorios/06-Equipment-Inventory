@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 import { JWT_SECRET_KEY } from "../configuration/env/enviroments";
 
@@ -16,7 +16,7 @@ export class EquipmentControllers {
   public getEquipments = async (req: Request, res: Response): Promise<any> => {
     try {
       const equipments = await this.equipmentServices.getEquipments();
-      res.status(200).json(equipments);
+      res.status(200).json({ equipments });
     } catch (error) {
       res.status(500).json({ error });
     }
@@ -27,12 +27,8 @@ export class EquipmentControllers {
     res: Response
   ): Promise<any> => {
     try {
-      let token: string = req.headers.authorization?.toString() || "";
-      token = token?.split(" ")[1];
-
-      const decoded = jwt.verify(token, JWT_SECRET_KEY) as JwtPayload;
+      let userId = req.user.id;
       const equipmentData: AddEquipment = req.body;
-      const userId: string = decoded.id;
 
       const equipment = await this.equipmentServices.createEquipment(
         equipmentData,
@@ -40,8 +36,8 @@ export class EquipmentControllers {
       );
 
       res.status(201).json({ equipment });
-    } catch (error) {
-      res.status(500).json(error);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
     }
   };
 

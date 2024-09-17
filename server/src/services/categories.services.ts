@@ -6,6 +6,11 @@ export class CategoriesServices {
   }
 
   async getCategoryById(id: string) {
-    return await Category.findByPk(id);
+    try {
+      const category = await Category.findByPk(id);
+      return category;
+    } catch (error) {
+      throw new Error("Category not found");
+    }
   }
 }

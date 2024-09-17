@@ -5,49 +5,42 @@ import "../style/nav.css";
 import { useAuth } from "../context/AuthContext";
 export default function Nav() {
   const { isAuthenticated, user, logout } = useAuth();
+  console.log(user || null);
 
-  console.log({ isAuthenticated, user });
   return (
     <nav>
-      <ul>
-        {isAuthenticated ? (
-          <>
-            <li>
-              <p>Bienvenido!, {user.username}</p>
-            </li>
-            {user.role === "admin" ? (
-              <>
-                <li>
-                  <Link to="/catalogo-de-equipos">Catálogo de equipos</Link>
-                </li>
-                <li>
-                  <Link to="/registro-de-equipo">Registro de equipo</Link>
-                </li>
-              </>
-            ) : (
-              <>
-                <li>
-                  <Link to="/catalogo-de-equipos">Catálogo de equipos</Link>
-                </li>
-              </>
-            )}
-            <li>
-              <Link to="/inicio-de-sesion" onClick={logout}>
-                Cerrar sesión
-              </Link>
-            </li>
-          </>
-        ) : (
-          <>
-            <li>
-              <Link to="/registro-de-usuario">Registro</Link>
-            </li>
-            <li>
-              <Link to="/inicio-de-sesion">Inicio de sesión</Link>
-            </li>
-          </>
-        )}
-      </ul>
+      {isAuthenticated ? (
+        <div>
+          <p>Bienvenido, {user.username}!</p>
+          <Link to="/">
+            <p>Home</p>
+          </Link>
+          <Link to="/" onClick={logout}>
+            <p>Cerrar Sesión</p>
+          </Link>
+          <Link to="/catalogo-de-equipos">
+            <p>Catalogo de Equipos</p>
+          </Link>
+
+          {user.role === "admin" ? (
+            <Link to="/agregar-producto">
+              <button>Añadir producto</button>
+            </Link>
+          ) : null}
+        </div>
+      ) : (
+        <div>
+          <Link to="/">
+            <p>Home</p>
+          </Link>
+          <Link to="/inicio-de-sesion">
+            <p>Login</p>
+          </Link>
+          <Link to="/registro-de-usuario">
+            <p>Register</p>
+          </Link>
+        </div>
+      )}
     </nav>
   );
 }

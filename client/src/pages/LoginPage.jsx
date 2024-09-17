@@ -29,13 +29,13 @@ export default function LoginPage() {
 
   return (
     <div>
-      <h1>Iniciar sesión</h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();
           onSubmit(credentials);
         }}
       >
+        <h1>Iniciar sesión</h1>
         <input
           type="username"
           name="username"
@@ -50,7 +50,9 @@ export default function LoginPage() {
         />
         <button type="submit">Iniciar sesión</button>
       </form>
-      <Link to="/registro-de-usuario">Registrarse</Link>
+      <Link to="/registro-de-usuario">
+        <button>Registrarse</button>
+      </Link>
     </div>
   );
 }

@@ -18,15 +18,15 @@ export class AuthControllers {
     try {
       const userData: CreateUser = req.body;
       console.log({ userData });
-      const newUser = await this.authServices.createUser(userData);
+      const user = await this.authServices.createUser(userData);
 
-      if (!newUser) {
+      if (!user) {
         return res.status(400).json({ message: "eRROr" });
       }
-      res.status(201).json(newUser);
+      res.status(201).json(user);
     } catch (error: any) {
       console.log(error);
-      res.status(500).json({ error: "EEEEEEEEEEEEEEEEEROR" });
+      res.status(500).json(error.message);
     }
   };
 

@@ -34,13 +34,13 @@ export default function RegisterPage() {
 
   return (
     <div>
-      <h1>Registro de usuario</h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();
           onSubmit(user);
         }}
       >
+        <h1>Registro de usuario</h1>
         <input
           type="text"
           name="name"
@@ -85,7 +85,9 @@ export default function RegisterPage() {
         </select>
         <button type="submit">Registrarse</button>
       </form>
-      <Link to="/inicio-de-sesion">Iniciar sesión</Link>
+      <Link to="/inicio-de-sesion">
+        <button>Iniciar sesión</button>
+      </Link>
     </div>
   );
 }

@@ -1,15 +1,27 @@
 .product-card {
   display: flex;
   flex-direction: column;
-  width: 50%;
-  padding: 1rem;
-  border: 10px solid #e0e0e0;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s;
+  justify-content: space-between;
+  background-color: #202020;
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
 }
 
+.product-card li {
+  list-style: none;
+  padding: 0.5rem;
+  color: #e0e0e0;
+}
+
+.product-card img {
+  border: 0.5px solid #e0e0e0;
+  width: 100%;
+  height: 50%;
+  object-fit: cover;
+}
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 2rem;
 }

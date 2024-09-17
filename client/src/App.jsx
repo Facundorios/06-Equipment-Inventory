@@ -6,6 +6,7 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import EquipmentsPage from "./pages/EquipmentsPage";
 import EquipmentPage from "./pages/EquipmentPage";
+import CreateEquipmentPage from "./pages/CreateEquipmentPage";
 import HomePage from "./pages/HomePage";
 
 import Nav from "./components/Nav";
@@ -29,6 +30,10 @@ function App() {
                   element={<EquipmentsPage />}
                 />
                 <Route path="/equipo/:id" element={<EquipmentPage />} />
+                <Route
+                  path="/agregar-producto"
+                  element={<CreateEquipmentPage />}
+                />
               </Route>
             </Routes>
           </main>

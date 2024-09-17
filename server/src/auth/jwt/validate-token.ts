@@ -20,10 +20,9 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
   let token = req.headers.authorization;
   token = token.split(" ")[1];
 
-  console.log({ token });
-  console.log(JWT_SECRET_KEY);
-  const verif = jwt.verify(token, JWT_SECRET_KEY) as JwtPayload;
+  if (!token) throw new Error("Inicie sesion para continuar");
 
+  const verif = jwt.verify(token, JWT_SECRET_KEY) as JwtPayload;
   if (!verif) return res.status(401).json({ message: "Token no valido." });
 
   let user = await new UserServices().getUserById(verif.id);

@@ -21,8 +21,8 @@ class EquipmentRoutes {
   private routes(): void {
     this.router.post(
       "/create",
-      role(ValidRoles.ADMIN),
       auth,
+      role(ValidRoles.ADMIN),
       this.equipmentControllers.createEquipment
     );
     this.router.get("/", this.equipmentControllers.getEquipments);
@@ -33,7 +33,12 @@ class EquipmentRoutes {
       role(ValidRoles.ADMIN),
       this.equipmentControllers.updateEquipment
     );
-    this.router.delete("/:id", auth, this.equipmentControllers.deleteEquipment);
+    this.router.delete(
+      "/:id",
+      auth,
+      role(ValidRoles.ADMIN),
+      this.equipmentControllers.deleteEquipment
+    );
   }
 }
 

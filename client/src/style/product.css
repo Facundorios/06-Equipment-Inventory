@@ -1,0 +1,25 @@
+.product {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  width: 50%;
+  background-color: #202020;
+  border: 1px solid #e0e0e0;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.product img {
+  width: 50%;
+}
+
+.info-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0.5rem;
+  color: #e0e0e0;
+}

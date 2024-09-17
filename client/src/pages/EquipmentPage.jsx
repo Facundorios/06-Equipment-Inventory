@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { getEquipmentRequest } from "../api/equipment";
-import "../style/products.css";
+import { getCategoryByIdRequest } from "../api/category";
+import "../style/product.css";
 
 export default function EquipmentPage() {
   const { id } = useParams();
   const [equipment, setEquipment] = useState(null);
+  const [category, setCategory] = useState(null);
 
   useEffect(() => {
     getEquipmentRequest(id).then((response) => {
@@ -14,25 +16,29 @@ export default function EquipmentPage() {
     });
   }, [id]);
 
-  if (!equipment) {
-    return <div>Cargando...</div>;
-  }
+  useEffect(() => {
+    if (equipment) {
+      getCategoryByIdRequest(equipment.categoryId).then((response) => {
+        setCategory(response);
+      });
+    }
+  }, [equipment]);
 
   return (
-    <div className="card">
-      <h1>Equipment Page</h1>
-      <h2>{equipment.name}</h2>
-      <p>{equipment.description}</p>
-      <p>
-        <strong>Stock:</strong> {equipment.stock}
-      </p>
-      <p>
-        <strong>Status:</strong> {equipment.status}
-      </p>
-      <p>
-        <strong>Category ID:</strong> {equipment.categoryId}
-      </p>
-      <img src={equipment.imageUrl} />
+    <div className="product">
+      {equipment && category && (
+        <>
+          <h1>{equipment.name}</h1>
+          <strong>{equipment.id}</strong>
+          <img src={equipment.imageUrl} alt={equipment.name} />
+          <div className="info-list">
+            <p>Category: {category.name.toUpperCase(0)}</p>
+            <p>Stock: {equipment.stock}</p>
+            <p>status: {equipment.status}</p>
+            <p>Description: {equipment.description}</p>
+          </div>
+        </>
+      )}
     </div>
   );
 }

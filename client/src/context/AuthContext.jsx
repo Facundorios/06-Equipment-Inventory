@@ -1,6 +1,8 @@
-import { useContext, createContext, useState } from "react";
-import { loginRequest, registerRequest } from "../api/auth";
+import { useContext, createContext, useState, useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
+
+import { loginRequest, registerRequest } from "../api/auth";
 
 // Se crea el contexto de autenticación
 const AuthContext = createContext();
@@ -25,13 +27,25 @@ export const AuthProvider = ({ children }) => {
   const register = async (user) => {
     try {
       const response = await registerRequest(user);
+      console.log(response);
       if (response.status == 201) {
-        console.log({ DATAAA: response.data });
-        setUser(response.data);
+        Swal.fire({
+          icon: "success",
+          title: "Usuario registrado",
+          text: "El usuario ha sido registrado correctamente",
+        });
+        console.log(response.data);
+        setUser(response.data.user);
         setIsAuthenticated(true);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        localStorage.setItem("token", response.data.token);
       }
     } catch (error) {
-      alert(error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Ha ocurrido un error al registrar el usuario",
+      });
       setError(error);
       console.log(error);
     }
@@ -41,12 +55,23 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await loginRequest(user);
       if (response.status == 200) {
+        Swal.fire({
+          icon: "success",
+          title: "Inicio de sesión",
+          text: "El usuario ha iniciado sesión correctamente",
+        });
         setUser(response.data.exists);
         setIsAuthenticated(true);
+        localStorage.setItem("user", JSON.stringify(response.data.exists));
+        localStorage.setItem("token", response.data.token);
       }
     } catch (error) {
-      alert(error);
       setError(error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Ha ocurrido un error al iniciar sesión",
+      });
       console.log(error);
     }
   };
@@ -55,6 +80,11 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setIsAuthenticated(false);
     delete axios.defaults.headers.common["Authorization"];
+    Swal.fire({
+      icon: "success",
+      title: "Sesión cerrada",
+      text: "La sesión ha sido cerrada correctamente",
+    });
   };
 
   return (

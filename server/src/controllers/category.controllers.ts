@@ -15,7 +15,7 @@ export class CategoriesControllers {
       if (categories.length === 0)
         res.status(404).json({ message: "Categories not found" });
 
-      res.status(200).json({ categories });
+      res.status(200).json(categories);
     } catch (error: any) {
       res.status(500).json({ error });
     }
@@ -28,7 +28,7 @@ export class CategoriesControllers {
       const category = await this.categoriesServices.getCategoryById(id);
       if (!category) res.status(404).json({ message: "Category not found" });
 
-      res.status(200).json({ category });
+      res.status(200).json(category);
     } catch (error) {
       res.status(500).json({ error });
     }

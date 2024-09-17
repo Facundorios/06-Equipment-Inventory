@@ -1,15 +1,22 @@
 nav {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  background-color: #181717;
-  width: 100vh;
+  flex-direction: row;
+  background-color: #923f3f;
+  width: 100%;
 }
 
-ul {
+p {
   display: flex;
-  justify-content: space-between;
-  list-style-type: none;
-  padding: 0;
+  flex-direction: row;
+  color: white;
   margin: 0;
+}
+
+button {
+  background-color: #6e2e2e;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 1rem;
 }
