@@ -10,7 +10,6 @@ export default function Nav() {
     <nav>
       {isAuthenticated ? (
         <div>
-          <p>Bienvenido, {user.username}!</p>
           <p>Tu rol es: {user.role}</p>
           <Link to="/">
             <p>Home</p>
