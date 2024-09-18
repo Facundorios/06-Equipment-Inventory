@@ -19,14 +19,15 @@ class EquipmentRoutes {
   }
 
   private routes(): void {
+    this.router.get("/", auth, this.equipmentControllers.getEquipments);
+    this.router.get("/:id", auth, this.equipmentControllers.getEquipmentById);
+
     this.router.post(
       "/create",
       auth,
       role(ValidRoles.ADMIN),
       this.equipmentControllers.createEquipment
     );
-    this.router.get("/", this.equipmentControllers.getEquipments);
-    this.router.get("/:id", this.equipmentControllers.getEquipmentById);
     this.router.patch(
       "/:id",
       auth,

@@ -113,22 +113,4 @@ export const equipmentData = [
     categoryName: "tarjetas gráficas",
     imageUrl: "https://m.media-amazon.com/images/I/71CPFiLxiQL._AC_SL1500_.jpg",
   },
-  {
-    name: "Auriculares Sony WH-1000XM4",
-    description: "Auriculares con cancelación de ruido",
-    stock: 18,
-    status: "available",
-    categoryName: "auriculares",
-    imageUrl:
-      "https://www.sony.com.ar/image/5d02da5df552836db894cead8a68f5f3?fmt=pjpeg&wid=330&bgcolor=FFFFFF&bgc=FFFFFF",
-  },
-  {
-    name: "Cámara web Logitech C920",
-    description: "Cámara web HD para videollamadas",
-    stock: 10,
-    status: "available",
-    categoryName: "cámaras web",
-    imageUrl:
-      "https://logitechar.vtexassets.com/arquivos/ids/157219-800-800?v=637081483397370000&width=800&height=800&aspect=true",
-  },
 ];

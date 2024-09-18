@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
-import { createEquipmentRequest } from "../api/equipment";
 import { getCategoriesRequest } from "../api/category";
+import { updatedEquipmentRequest, getEquipmentRequest } from "../api/equipment";
 
-import "../style/form.css";
-
-export default function FormEquipmentPage() {
+export default function EditEquipmentPage() {
+  const { id } = useParams();
   const [categories, setCategories] = useState([]);
+
   const [equipment, setEquipment] = useState({
     name: "",
     stock: 0,
@@ -31,6 +31,19 @@ export default function FormEquipmentPage() {
     fetchCategories();
   }, []);
 
+  useEffect(() => {
+    const fetchEquipment = async () => {
+      try {
+        await getEquipmentRequest(id).then((response) => {
+          setEquipment(response);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchEquipment();
+  }, [id]);
+
   const handleChange = (event) => {
     setEquipment({
       ...equipment,
@@ -41,21 +54,13 @@ export default function FormEquipmentPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await createEquipmentRequest(equipment).then((response) => {
-        console.log({ equipment, response });
+      await updatedEquipmentRequest(id, equipment).then((response) => {
+        console.log(response, equipment);
         Swal.fire({
           icon: "success",
-          title: "Equipo creado correctamente",
+          title: "Equipo actualizado correctamente",
           showConfirmButton: false,
           timer: 1500,
-        });
-        setEquipment({
-          name: "",
-          stock: 0,
-          status: "",
-          imageUrl: "",
-          categoryId: "",
-          description: "",
         });
       });
     } catch (error) {
@@ -71,7 +76,7 @@ export default function FormEquipmentPage() {
 
   return (
     <div>
-      <h1>Añadir Equipo</h1>
+      <h1>Actualizar Equipo</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Nombre</label>
         <input
@@ -128,12 +133,12 @@ export default function FormEquipmentPage() {
         >
           {categories.map((category) => (
             <option key={category.id} value={category.id}>
-              {category.name}
+              {category.name}, {category.description}
             </option>
           ))}
         </select>
 
-        <button type="submit">Crear</button>
+        <button type="submit">Actualizar</button>
       </form>
     </div>
   );

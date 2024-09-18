@@ -3,5 +3,14 @@ export interface AddEquipment {
   description: string;
   status: string;
   stock: number;
-  categroryId: string;
+  imageUrl?: string;
+  categroryId?: string;
+}
+export interface UpdateEquipment {
+  name?: string;
+  description?: string;
+  status?: string;
+  stock?: number;
+  imageUrl?: string;
+  categoryId?: string;
 }

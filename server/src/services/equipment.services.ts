@@ -22,12 +22,10 @@ export class EquipmentService {
 
   async updateEquipment(id: string, updateEquipment: UpdateEquipment) {
     const equipment = await Equipment.findByPk(id);
+    if (!equipment) throw new Error("Equipment not found");
 
-    await Equipment.update(updateEquipment, {
-      where: {
-        id,
-      },
-    });
+    equipment.update(updateEquipment);
+    equipment.save();
 
     return equipment;
   }

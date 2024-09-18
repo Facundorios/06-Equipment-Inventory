@@ -16,7 +16,7 @@ export class EquipmentControllers {
   public getEquipments = async (req: Request, res: Response): Promise<any> => {
     try {
       const equipments = await this.equipmentServices.getEquipments();
-      res.status(200).json({ equipments });
+      res.status(200).json(equipments);
     } catch (error) {
       res.status(500).json({ error });
     }
@@ -35,7 +35,7 @@ export class EquipmentControllers {
         userId
       );
 
-      res.status(201).json({ equipment });
+      res.status(201).json(equipment);
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
@@ -71,7 +71,9 @@ export class EquipmentControllers {
         equipmentData
       );
 
-      res.status(200).json({ equipment });
+      res
+        .status(200)
+        .json({ message: "Se actualizó el equipo correctamente", equipment });
     } catch (error) {
       res.status(500).json({ error });
     }

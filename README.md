@@ -61,4 +61,4 @@ npm run dev
 
 # Funcionalidades desarrolladas.
 
-... Son, son las 10 de la mañana, creo que no he dormido nada, y tengo que decirtelo..
+Para ver las funcionalidades desarrolladas, vease el archivo REQUEST.MD.

@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
-import { getEquipmentRequest } from "../api/equipment";
+import { useAuth } from "../context/AuthContext";
+
+import { getEquipmentRequest, deleteEquipmentRequest } from "../api/equipment";
 import { getCategoryByIdRequest } from "../api/category";
 import "../style/product.css";
 
 export default function EquipmentPage() {
+  const { user } = useAuth();
   const { id } = useParams();
   const [equipment, setEquipment] = useState(null);
   const [category, setCategory] = useState(null);
@@ -24,6 +28,28 @@ export default function EquipmentPage() {
     }
   }, [equipment]);
 
+  const handleDelete = () => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Una vez eliminado, no se podrá recuperar",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteEquipmentRequest(id).then((response) => {
+          if (response.status === 204) {
+            Swal.fire("Eliminado", "El equipo ha sido eliminado", "success");
+          }
+          window.location.href = "/catalogo-de-equipos";
+        });
+      }
+    });
+  };
+
   return (
     <div className="product">
       {equipment && category && (
@@ -37,6 +63,12 @@ export default function EquipmentPage() {
             <p>status: {equipment.status}</p>
             <p>Description: {equipment.description}</p>
           </div>
+          {user.role === "admin" ? (
+            <>
+              <button onClick={handleDelete}>Eliminar</button>
+              <Link to={`/editar-equipo/${equipment.id}`}>Editar</Link>
+            </>
+          ) : null}
         </>
       )}
     </div>

@@ -24,6 +24,14 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+      setIsAuthenticated(true);
+    }
+  }, []);
+
   const register = async (user) => {
     try {
       const response = await registerRequest(user);
@@ -80,6 +88,8 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setIsAuthenticated(false);
     delete axios.defaults.headers.common["Authorization"];
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
     Swal.fire({
       icon: "success",
       title: "Sesión cerrada",

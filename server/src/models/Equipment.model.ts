@@ -7,7 +7,6 @@ import {
   BelongsTo,
   PrimaryKey,
   ForeignKey,
-  AllowNull,
 } from "sequelize-typescript";
 import { v4 as uuidv4 } from "uuid";
 
@@ -55,7 +54,7 @@ export class Equipment extends Model {
   stock: number;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.STRING(1000),
     allowNull: false,
   })
   imageUrl: string;

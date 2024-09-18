@@ -2,12 +2,15 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { AuthProvider } from "./context/AuthContext";
 
+import HomePage from "./pages/HomePage";
+
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
+
 import EquipmentsPage from "./pages/EquipmentsPage";
 import EquipmentPage from "./pages/EquipmentPage";
 import CreateEquipmentPage from "./pages/CreateEquipmentPage";
-import HomePage from "./pages/HomePage";
+import EditEquipmentPage from "./pages/EditEquipmentPage";
 
 import Nav from "./components/Nav";
 
@@ -26,13 +29,17 @@ function App() {
 
               <Route element={<ProtectedRoute />}>
                 <Route
+                  path="/agregar-producto"
+                  element={<CreateEquipmentPage />}
+                />
+                <Route
                   path="/catalogo-de-equipos"
                   element={<EquipmentsPage />}
                 />
                 <Route path="/equipo/:id" element={<EquipmentPage />} />
                 <Route
-                  path="/agregar-producto"
-                  element={<CreateEquipmentPage />}
+                  path="/editar-equipo/:id"
+                  element={<EditEquipmentPage />}
                 />
               </Route>
             </Routes>

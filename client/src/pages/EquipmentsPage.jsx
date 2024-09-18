@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { getEquipmentsRequest } from "../api/equipment";
 
@@ -13,30 +13,24 @@ export default function EquipmentsPage() {
     setEquipments(data);
   };
 
-  console.log(equipments);
-
   return (
     <>
       <h1>Equipments</h1>
       <button onClick={handleClick}>Get Equipments</button>
-      {/* <div className="products">
-        {equipments.length !== 0 &&
-          equipments.map((equipment) => (
+      <div className="products">
+        {equipments.map((equipment) => (
+          <div key={equipment.id} className="product-card">
+            <li>
+              <h2>{equipment.name}</h2>
+              <p>{equipment.description}</p>
+            </li>
+            <img src={equipment.imageUrl} alt={equipment.name} width={100} />
             <Link to={`/equipo/${equipment.id}`}>
-              <div key={equipment.id} className="product-card">
-                <li>
-                  <h2>{equipment.name}</h2>
-                  <p>{equipment.description}</p>
-                </li>
-                <img
-                  src={equipment.imageUrl}
-                  alt={equipment.name}
-                  width={100}
-                />
-              </div>
+              <button>Ver más info</button>
             </Link>
-          ))}
-      </div> */}
+          </div>
+        ))}
+      </div>
     </>
   );
 }

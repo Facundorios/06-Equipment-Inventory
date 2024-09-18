@@ -5,13 +5,13 @@ import "../style/nav.css";
 import { useAuth } from "../context/AuthContext";
 export default function Nav() {
   const { isAuthenticated, user, logout } = useAuth();
-  console.log(user || null);
 
   return (
     <nav>
       {isAuthenticated ? (
         <div>
           <p>Bienvenido, {user.username}!</p>
+          <p>Tu rol es: {user.role}</p>
           <Link to="/">
             <p>Home</p>
           </Link>

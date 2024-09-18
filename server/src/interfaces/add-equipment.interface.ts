@@ -1,7 +1,8 @@
 export interface AddEquipment {
   name: string;
-  description: string;
-  status: string;
   stock: number;
+  status: string;
+  imageUrl: string;
   categroryId: string;
+  description: string;
 }
