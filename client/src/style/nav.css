@@ -1,28 +1,20 @@
 nav {
   font-weight: bold;
-  background-color: #923f3f;
+  background-color: #191919;
   width: 100%;
 }
 
 nav div {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 
 nav button {
   color: white;
-  background-color: #602c2c;
+  background-color: #212121;
   padding: 0.5rem;
-  border: none;
-  border-radius: 5px;
   &:hover {
-    background-color: #552c2c;
+    background-color: #505050;
   }
-}
-
-nav p {
-  list-style-type: none;
-  color: white;
-  padding: 0.5rem;
 }

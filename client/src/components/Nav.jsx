@@ -12,13 +12,10 @@ export default function Nav() {
         <div>
           <p>Tu rol es: {user.role}</p>
           <Link to="/">
-            <p>Home</p>
-          </Link>
-          <Link to="/" onClick={logout}>
-            <p>Cerrar Sesión</p>
+            <button>inicio</button>{" "}
           </Link>
           <Link to="/catalogo-de-equipos">
-            <p>Catalogo de Equipos</p>
+            <button>Catalogo de Equipos</button>
           </Link>
 
           {user.role === "admin" ? (
@@ -26,17 +23,17 @@ export default function Nav() {
               <button>Añadir producto</button>
             </Link>
           ) : null}
+          <Link to="/" onClick={logout}>
+            <button>Cerrar Sesión</button>
+          </Link>
         </div>
       ) : (
         <div>
-          <Link to="/">
-            <p>Home</p>
-          </Link>
           <Link to="/inicio-de-sesion">
-            <p>Login</p>
+            <button> Iniciar Sesión</button>
           </Link>
           <Link to="/registro-de-usuario">
-            <p>Register</p>
+            <button> Registro</button>
           </Link>
         </div>
       )}
